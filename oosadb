@@ -1,0 +1,103 @@
+/*
+SQLyog Ultimate v11.5 (64 bit)
+MySQL - 10.1.28-MariaDB : Database - fg
+*********************************************************************
+*/
+
+
+/*!40101 SET NAMES utf8 */;
+
+/*!40101 SET SQL_MODE=''*/;
+
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`fg` /*!40100 DEFAULT CHARACTER SET latin1 */;
+
+USE `fg`;
+
+/*Table structure for table `coupon_tbl` */
+
+DROP TABLE IF EXISTS `coupon_tbl`;
+
+CREATE TABLE `coupon_tbl` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(10) DEFAULT NULL,
+  `percent` double DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `coupon_tbl` */
+
+
+/*Table structure for table `menu_category` */
+
+DROP TABLE IF EXISTS `menu_category`;
+
+CREATE TABLE `menu_category` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+/*Data for the table `menu_category` */
+
+insert  into `menu_category`(`id`,`name`) values (1,'Burgers'),(2,'Beverages'),(3,'Combo Meals');
+
+/*Table structure for table `menu_item` */
+
+DROP TABLE IF EXISTS `menu_item`;
+
+CREATE TABLE `menu_item` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) DEFAULT NULL,
+  `price` double DEFAULT NULL,
+  `category_id` int(11) DEFAULT NULL,
+  `url` varchar(20) DEFAULT NULL,
+  `codename` varchar(6) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+
+/*Data for the table `menu_item` */
+
+insert  into `menu_item`(`id`,`name`,`price`,`category_id`,`url`,`codename`) values (1,'Hotdog',30,1,'hd.jpg','HD1'),(2,'Cheese Burger',40,1,'cb1.png','CB1'),(3,'Fries',25,1,'fries.jpg','FR-S'),(4,'Coke',15,2,'coke.jpg','CK-S'),(5,'Sprite',15,2,'sp.jpg','SP-S'),(6,'Tea',15,2,'ict.jpg','IT-S'),(7,'Chicken Combo',75,3,'ccml.jpg','CCML'),(8,'Pork Combo',75,3,'pcml.jpg','PCML'),(9,'Fish Combo',75,3,'fcml.jpg','FCML');
+
+/*Table structure for table `order_item_tbl` */
+
+DROP TABLE IF EXISTS `order_item_tbl`;
+
+CREATE TABLE `order_item_tbl` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `item_id` int(11) DEFAULT NULL,
+  `item_cnt` int(11) DEFAULT NULL,
+  `customer_id` varchar(15) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+
+/*Data for the table `order_item_tbl` */
+
+insert  into `order_item_tbl`(`id`,`item_id`,`item_cnt`,`customer_id`) values (1,2,2,'477905'),(2,3,1,'477905'),(3,2,2,'395263'),(4,3,1,'395263'),(5,6,1,'395263'),(6,5,1,'395263'),(7,2,1,'280914'),(8,5,3,'293273'),(9,7,1,'293273'),(10,8,1,'293273'),(11,9,1,'293273');
+
+/*Table structure for table `order_tbl` */
+
+DROP TABLE IF EXISTS `order_tbl`;
+
+CREATE TABLE `order_tbl` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `customer_id` varchar(15) DEFAULT NULL,
+  `coupon_id` int(11) DEFAULT NULL,
+  `total` float DEFAULT NULL,
+  `tax_price` float DEFAULT NULL,
+  `stamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+/*Data for the table `order_tbl` */
+
+insert  into `order_tbl`(`id`,`customer_id`,`coupon_id`,`total`,`tax_price`,`stamp`) values (1,'477905',1,92.4,11.088,'2022-03-03 20:27:26'),(2,'395263',1,118.8,14.256,'2022-03-03 20:38:03'),(3,'280914',1,35.2,4.224,'2022-03-03 22:04:22'),(4,'293273',1,237.6,28.512,'2022-03-03 22:05:05');
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
